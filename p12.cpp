@@ -1,10 +1,10 @@
-//33. Search in Rotated Sorted Array
+//81. Search in Rotated Sorted Array - 2
 
 #include<iostream>
 #include<vector>
 using namespace std;
 
- int search(vector<int>& nums, int target) {
+ bool search(vector<int>& nums, int target) {
         int s = 0;
         int e = nums.size()-1;
 
@@ -14,7 +14,14 @@ using namespace std;
 
             if(nums[mid]==target)
             {
-                return mid;
+                return true;
+            }
+
+            if(nums[s] == nums[mid] && nums[mid]==nums[e])
+            {
+                s = s+1;
+                e = e -1;
+                continue;
             }
             if(nums[s]<=nums[mid])
             {
@@ -42,13 +49,13 @@ using namespace std;
                 }
             }
         }
-        return -1;
+        return false;
     }
 
     int main()
     {
-        vector<int> nums = {4,5,6,7,0,1,2};
+        vector<int> nums = {1,0,1,1,1};
         int target = 0;
-        search(nums,target)==-1?cout<<"Element not found"<<endl : cout<<"Element found : "<<endl;
+        search(nums,target)==false?cout<<"Element not found"<<endl : cout<<"Element found : "<<endl;
 
     }
