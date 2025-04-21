@@ -21,7 +21,7 @@ int maxSubArray1(vector<int> nums)
     return globalMax;
 }
 
-
+//better approach -- O(n2);
 int maxSubArray2(vector<int> nums)
 {
     int globalMax = INT_MIN;
