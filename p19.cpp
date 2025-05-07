@@ -26,7 +26,7 @@ class LinkedList
         }
 
        void insertAtHead(int d);
-       void printList();
+       void printList(Node *head);
 
        bool searchElement(int target);
        void deleteNode(int target);
@@ -130,21 +130,15 @@ bool LinkedList::searchElement(int target)
     return true;
 }
 
-void LinkedList::printList()
+void LinkedList::printList(Node *head)
 {
     //Base case.......
     if(head==NULL)
     {
-        cout<<"No list to print"<<endl;
         return;
     }
-
-    Node* cur = head;
-    while(cur!=NULL)
-    {
-        cout<<cur->data<<"---->";
-        cur = cur->next;
-    }
+    cout<<head->data<<"-->>";
+    printList(head->next);
 
 }
 
@@ -173,7 +167,7 @@ int main()
     sll.insertAtHead(7);
     sll.insertAtHead(9);
 
-    sll.printList();
+    sll.printList(sll.head);
 
     // cout<<endl;
     // int target;
