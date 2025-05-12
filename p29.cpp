@@ -11,7 +11,7 @@ void generateSubsequence(string str,string &ans,int i)
     ans = ans + str[i];
     generateSubsequence(str,ans,i+1);
     ans.pop_back();
-    generateSubsequence(str,ans,i+1);
+    generateSubsequence(str,ans,i+1);   
 
 }
 int main()

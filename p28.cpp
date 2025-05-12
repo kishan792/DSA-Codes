@@ -1,4 +1,4 @@
-//QuickSort Sort
+//QuickSort Sort O(n Log n)
 
 #include<iostream>
 using namespace std;
@@ -31,7 +31,7 @@ int partion(int arr[],int s,int e)
 
 }
 
-void quickSort(int arr[],int s, int e)
+void quickSort(int arr[],int s, int e)//log(n)
 {
     if(s>=e)
     {
