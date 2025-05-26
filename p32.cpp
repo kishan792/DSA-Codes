@@ -1,5 +1,6 @@
 #include<iostream>
 #include<queue>
+#include<stack>
 using namespace std;
 
 class Node
@@ -24,12 +25,77 @@ class BinaryTree
        void inOrder(Node* root);
        void postOrder(Node* root);
        void levelOrder(Node *root);
-       Node* createTree(Node *root,int d);
+       Node* createTree(Node* &root,int d);
+       void preOrderIter(Node* root);
 };
 
-Node* BinaryTree::createTree(Node* root,int d)
+void BinaryTree::preOrderIter(Node* root)
 {
-    
+    if(root==NULL)
+    {
+        return;
+    }
+
+    stack<Node*> st;
+    st.push(root);
+    Node* cur = NULL;
+
+    while(st.empty()!=true)
+    {
+        cur = st.top();
+        st.pop();
+
+        cout<<cur->data<<"  ";
+        if(cur->right!=NULL)
+        {
+            st.push(cur->right);
+        }
+        if(cur->left!=NULL)
+        {
+            st.push(cur->left);
+        }
+    }
+
+}
+Node* BinaryTree::createTree(Node* &root,int d)
+{
+    Node* temp = new Node;
+    temp->data = d;
+
+    if(root==NULL)
+    {
+        root=temp;
+        return root;
+    }
+
+    queue<Node*> q;
+    q.push(root);
+
+    while(q.empty()!=true)
+    {
+        Node *cur = q.front();
+        q.pop();
+
+        if(cur->left==NULL)
+        {
+            cur->left = temp;
+            return root;
+        }
+        else{
+            q.push(cur->left);
+        }
+
+
+        if(cur->right==NULL)
+        {
+            cur->right = temp;
+            return root;
+        }
+        else{
+            q.push(cur->right);
+        }
+    }
+    return root;
 }
 
 void BinaryTree::levelOrder(Node *root)
