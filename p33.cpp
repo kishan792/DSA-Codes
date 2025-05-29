@@ -22,6 +22,7 @@ class BinaryTree
         bool searchBST(Node* root,int target);
         int getMinValue(Node* root);
         void inOrder(Node *root);
+        Node* deleteFromBST(Node* root,int target);
 };
 
 int BinaryTree::getMinValue(Node *root)
@@ -120,6 +121,61 @@ bool BinaryTree::searchBST(Node* root,int target)
     return false;
 }
 
+Node* BinaryTree::deleteFromBST(Node* root,int target)
+{
+    if(root==NULL)
+    {
+        return NULL;
+    }
+
+    if(root->data==target)
+    {
+        //delete code
+        //case 1 -> 0 child case
+        if(root->left==NULL && root->right==NULL)
+        {
+            delete root;
+            return NULL;
+        }
+
+        //case 2 -> 1 child case 
+        //sub case -> left child case
+        if(root->left!=NULL && root->right==NULL)
+        {
+            Node *temp = root->left;
+            delete root;
+            return temp;
+        }
+        //sub case -> right child case
+        if(root->left==NULL && root->right!=NULL)
+        {
+            Node* temp = root->right;
+            delete root;
+            return temp;
+        }
+        //case 3 --> 2 child case
+        if(root->left!=NULL && root->right!=NULL)
+        {
+            int mn = getMinValue(root->right);
+            root->data = mn;
+            root->right = deleteFromBST(root->right,mn);
+            return root;
+        }
+
+    }
+    else if(root->data<target)
+    {
+        root->right = deleteFromBST(root->right,target);
+        return root;
+    }
+    else
+    {
+       root->left =  deleteFromBST(root->left,target);
+        return root;
+    }
+    return root;
+}
+
 int main()
 {
     BinaryTree bst;
@@ -142,11 +198,18 @@ int main()
 
     cout<<endl;
 
-    bst.searchInBst(root,80) ? cout<<"Element found"<<endl : cout<<"Element not found"<<endl;
-    bst.searchBST(root,60) ? cout<<"Element found"<<endl : cout<<"Element not found"<<endl;
+    // bst.searchInBst(root,80) ? cout<<"Element found"<<endl : cout<<"Element not found"<<endl;
+    // bst.searchBST(root,60) ? cout<<"Element found"<<endl : cout<<"Element not found"<<endl;
 
-    cout<<"Inorder successor of 50"<<endl;
-    cout<<bst.getMinValue(root->right);
+    // cout<<"Inorder successor of 50"<<endl;
+    // cout<<bst.getMinValue(root->right);
 
+    root  = bst.deleteFromBST(root,50);
+
+    cout<<"Inorder traversal "<<endl;
+    bst.inOrder(root);
+
+    cout<<endl;
+    
     return -1;
 }
