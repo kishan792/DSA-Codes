@@ -107,21 +107,21 @@ Node* BinaryTree::createAVL(Node* &root,int d)
 
     int balance = getBalance(root);
 
-    if(balance>1 && root->left->data>d)
+    if(balance>1 && root->left->data>d)//LL insertion
     {
         return rightRotate(root);
        
     }
-    if(balance<-1 && root->right->data<d)
+    if(balance<-1 && root->right->data<d) //RR insertion
     {
         return leftRotate(root);
     }
-    if(balance>1 && root->left->data < d)
+    if(balance>1 && root->left->data < d) //LR insertion
     {
         root->left = leftRotate(root->left);
         return rightRotate(root);
     }
-    if(balance<-1 && root->right->data>d)
+    if(balance<-1 && root->right->data>d) //RL insertion
     {
         root->right = rightRotate(root->right);
         return leftRotate(root);
